@@ -13,9 +13,10 @@ cur.execute("""CREATE TABLE IF NOT EXISTS kayit(
 db.commit()
 
 token=""
+token=""
     
 intents = Intents.DEFAULT  | Intents.MESSAGE_CONTENT
-activty = Activity.create("Coming back?", url= "Developed by (rembeber to fill in this gap)")
+activty = Activity.create("Kayıt olmak için l!kayıt")
 bot = Client(intents= intents, activity= activty, token= token)
 prefixed_commands.setup(bot, default_prefix="l!")
 

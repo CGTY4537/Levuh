@@ -16,7 +16,10 @@ class MyExtension(Extension):
         if ctx.member.has_role(1255534039041835141):
             cur.execute(f"SELECT 1 FROM kayit WHERE key = ? LIMIT 1;", (arg,))
             if cur.fetchone() is None:
-                self.df = pd.read_csv("database.csv")
+                try:
+                    self.df = pd.read_csv("database.csv")
+                except FileNotFoundError:
+                    await ctx.send(embed=Embed(color="RED", description="Bir aksilik çıktı lütfen moderatörlere hata kodunu iletin! _Database Error 1_"))
                 
                 datas = self.df.loc[self.df['encrypted_password'] == arg]["raw_user_meta_data"]
                 if not datas.empty:
@@ -28,7 +31,7 @@ class MyExtension(Extension):
                     cur.execute("INSERT INTO kayit (user_id, key) VALUES(?, ?)", (ctx.author_id, arg))
                     db.commit()
                 else:
-                    await ctx.send(embed=Embed(color="RED", description="Girdiğiniz şifre sistemde gözükmüyor"))
+                    await ctx.send(embed=Embed(color="RED", description="Girdiğiniz kayıt kodu sistemde gözükmüyor."))
             else:
                 await ctx.send(embed=Embed(color="RED", description="Bu kayıt kodu daha önceden kullanılmış. Eğer bir hata olduğunu düşünüyorsan moderatörlerimizden yardım isteyebilirsin."))
         else:
