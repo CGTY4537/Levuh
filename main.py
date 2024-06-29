@@ -22,4 +22,3 @@ prefixed_commands.setup(bot, default_prefix="l!")
 
 bot.load_extension("test")
 bot.start(token)
-bot.start(token)
