@@ -17,13 +17,18 @@ class MyExtension(Extension):
             cur.execute(f"SELECT 1 FROM kayit WHERE key = ? LIMIT 1;", (arg,))
             if cur.fetchone() is None:
                 self.df = pd.read_csv("database.csv")
-                right_row = json.loads(self.df.loc[self.df['encrypted_password'] == arg]["raw_user_meta_data"][0])
-                await ctx.author.edit_nickname(right_row["name"])
-                await ctx.send(embed=Embed(color="GREEN", description="Kaydınız başarılı! Roleriniz veriliyor."))
-                await ctx.author.remove_role(1255534039041835141)
-                await ctx.author.add_role(1255533752310960198)
-                cur.execute("INSERT INTO kayit (user_id, key) VALUES(?, ?)", (ctx.author_id, arg))
-                db.commit()
+                
+                datas = self.df.loc[self.df['encrypted_password'] == arg]["raw_user_meta_data"]
+                if not datas.empty:
+                    data_dict = json.loads(datas.iloc[0])
+                    await ctx.author.edit_nickname(data_dict["name"])
+                    await ctx.send(embed=Embed(color="GREEN", description="Kaydınız başarılı! Roleriniz veriliyor."))
+                    await ctx.author.remove_role(1255534039041835141)
+                    await ctx.author.add_role(1255533752310960198)
+                    cur.execute("INSERT INTO kayit (user_id, key) VALUES(?, ?)", (ctx.author_id, arg))
+                    db.commit()
+                else:
+                    await ctx.send(embed=Embed(color="RED", description="Girdiğiniz şifre sistemde gözükmüyor"))
             else:
                 await ctx.send(embed=Embed(color="RED", description="Bu kayıt kodu daha önceden kullanılmış. Eğer bir hata olduğunu düşünüyorsan moderatörlerimizden yardım isteyebilirsin."))
         else:
