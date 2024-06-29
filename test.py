@@ -27,4 +27,4 @@ class MyExtension(Extension):
             else:
                 await ctx.send(embed=Embed(color="RED", description="Bu kayıt kodu daha önceden kullanılmış. Eğer bir hata olduğunu düşünüyorsan moderatörlerimizden yardım isteyebilirsin."))
         else:
-            await ctx.send(embed=Embed(color="RED", description="Şuanda kayıtlı gözüküyorsun."))
+            await ctx.send(embed=Embed(color="RED", description="Şu anda kayıtlı gözüküyorsun."))
