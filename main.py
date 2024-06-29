@@ -12,7 +12,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS kayit(
     );""")
 db.commit()
 
-token="MTI1NDQyNjI1MzE4MDY2NTg1Ng.GHPQDp.G716egXo9KgiM0175FXCbjFWF1GaDj2Y3D5ESo"
+token=""
     
 intents = Intents.DEFAULT  | Intents.MESSAGE_CONTENT
 activty = Activity.create("Coming back?", url= "Developed by (rembeber to fill in this gap)")
