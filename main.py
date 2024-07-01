@@ -13,14 +13,17 @@ cur.execute("""CREATE TABLE IF NOT EXISTS kayit(
 db.commit()
 
 token=""
-    
+
 intents = Intents.DEFAULT  | Intents.MESSAGE_CONTENT
 activty = Activity.create("Kayıt olmak için l!kayıt")
 bot = Client(intents= intents, activity= activty, token= token)
 prefixed_commands.setup(bot, default_prefix="l!")
+
 @listen()
 async def on_startup():
     print("Bot is ready!")
 
 bot.load_extension("kayit")
+bot.load_extension("help")
+
 bot.start(token)
